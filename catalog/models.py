@@ -23,6 +23,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+
     name_product = models.CharField(
         max_length=100,
         verbose_name="Наименование",
@@ -52,11 +53,13 @@ class Product(models.Model):
     )
     price = models.IntegerField(verbose_name="Цена", help_text="Введите цену")
     created_at = models.DateField(
-        verbose_name="Дата создания записи", help_text="Введите дату создания записи"
+        verbose_name="Дата создания записи", help_text="Введите дату создания записи",blank=True,
+        null=True,
     )
     updated_at = models.DateField(
         verbose_name="Дата последнего изменения записи",
-        help_text="Введите дату последнего изменения записи",
+        help_text="Введите дату последнего изменения записи",blank=True,
+        null=True,
     )
 
     class Meta:

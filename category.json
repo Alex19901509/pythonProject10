@@ -1,0 +1,18 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "name_category": "Мобильные телефоны",
+      "description": "различные бренды мобильных телефонов"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "name_category": "бытовая техника",
+      "description": "бытовая техника для дома и дачи"
+    }
+  }
+]
