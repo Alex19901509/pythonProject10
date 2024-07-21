@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
 from catalog.models import Product
 
@@ -9,14 +9,14 @@ def home(request):
     return render(request, "home.html")
 
 
-def contacts(request):
-    if request.method == "POST":
-        name = request.POST.get("name")
-        phone = request.POST.get("phone")
-        message = request.POST.get("message")
-        print(f"{name} ({phone}): {message}")
+class ContactsView(TemplateView):
 
-    return render(request, "contacts.html")
+    template_name = 'catalog/contacts.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['contacts'] = Product.objects.all()[:5]
+        return context
 
 
 class ProductListView(ListView):
@@ -31,6 +31,7 @@ class ProductDetailView(DetailView):
         self.object.views_counter += 1
         self.object.save()
         return self.object
+
 
 class ProductCreateView(CreateView):
     model = Product
