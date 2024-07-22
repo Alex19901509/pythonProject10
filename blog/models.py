@@ -8,9 +8,8 @@ class Blog(models.Model):
         help_text="Введите заголовок",
     )
     slug = models.CharField(
-        max_length=50,
+        unique=True,
         verbose_name="Ссылка",
-        help_text="Введите ссылку",
     )
     description = models.TextField(
         verbose_name="Содержимое",
@@ -26,11 +25,10 @@ class Blog(models.Model):
         help_text="Загрузите изображение",
     )
     created_at = models.DateTimeField(
-        blank=True,
-        null=True,
+        auto_now_add=True,
         verbose_name="Дата создания",
-        help_text="Укажите дату создания",
     )
+
     is_published = models.BooleanField(
         default=False,
         verbose_name="Опубликовано",
