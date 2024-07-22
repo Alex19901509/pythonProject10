@@ -5,9 +5,6 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from catalog.models import Product
 
 
-def home(request):
-    return render(request, "home.html")
-
 
 class ContactsView(TemplateView):
 
