@@ -26,6 +26,8 @@ class Blog(models.Model):
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
+        blank=True,
+        null=True,
         verbose_name="Дата создания",
     )
 
