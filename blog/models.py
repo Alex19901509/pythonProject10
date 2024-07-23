@@ -12,10 +12,10 @@ class Blog(models.Model):
         verbose_name="Ссылка",
     )
     description = models.TextField(
-        verbose_name="Содержимое",
-        help_text="Введите содержимое",
         blank=True,
         null=True,
+        verbose_name="Содержимое",
+        help_text="Введите содержимое",
     )
     photo = models.ImageField(
         upload_to="product/photo",
