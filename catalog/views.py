@@ -9,7 +9,6 @@ from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Version
 
 
-
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
@@ -21,8 +20,6 @@ class ContactsView(TemplateView):
 
 class ProductListView(ListView):
     model = Product
-
-
 
 
 class ProductDetailView(DetailView, LoginRequiredMixin):
@@ -44,8 +41,6 @@ class ProductDetailView(DetailView, LoginRequiredMixin):
             formset.instance = self.object
             formset.save()
         return super().form_valid(form)
-
-
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
@@ -86,10 +81,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:catalog_list')
-
-
-
