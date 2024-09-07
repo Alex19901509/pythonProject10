@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
+from catalog.services import get_categories_from_cache
 
 
 class ContactsView(TemplateView):
@@ -69,8 +70,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             context_data['formset'] = ProductFormset(instance=self.object)
         return context_data
 
-
-
     def form_valid(self, form):
         context_data = self.get_context_data()
         formset = context_data['formset']
@@ -96,3 +95,10 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:catalog_list')
+
+
+class CategoryListView(ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categories_from_cache()
