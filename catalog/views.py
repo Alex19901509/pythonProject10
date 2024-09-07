@@ -69,6 +69,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             context_data['formset'] = ProductFormset(instance=self.object)
         return context_data
 
+
+
     def form_valid(self, form):
         context_data = self.get_context_data()
         formset = context_data['formset']
@@ -79,6 +81,16 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+    def get_form_class(self):
+        user = self.request.user
+        user.save()
+        if user == self.object.owner:
+            return ProductForm
+        if user.has_perm('catalog.can_edit_product_description') and user.has_perm(
+                'catalog.can_edit_product_category') and user.has_perm('catalog.can_cancel_publication'):
+            return ProductModeratorForm
+        raise PermissionDenied
 
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
